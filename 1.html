@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Random String Generator</title>
+	<style>
+		/* CSS styles for the page layout */
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+		}
+
+		input[type="text"] {
+			width: 300px;
+			margin-bottom: 10px;
+		}
+
+		#result {
+			border: 1px solid #ccc;
+			padding: 10px;
+			width: 300px;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Random String Generator</h1>
+
+	<label for="length">String should be <input type="number" id="length" min="1" step="1"> characters long.</label>
+
+	<p>Which characters are allowed to occur in the strings?</p>
+	<label><input type="checkbox" id="includeDigits"> Numeric digits (0-9)</label>
+	<label><input type="checkbox" id="includeUppercase"> Uppercase letters (A-Z)</label>
+	<label><input type="checkbox" id="includeLowercase"> Lowercase letters (a-z)</label>
+
+	<button id="generateBtn">Generate</button>
+
+	<div id="result"></div>
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		$(document).ready(function () {
+			// Function to be executed when the "Generate" button is clicked
+			$('#generateBtn').click(function () {
+				// Retrieve user input values
+				var length = parseInt($('#length').val());
+				var includeDigits = $('#includeDigits').prop('checked');
+				var includeUppercase = $('#includeUppercase').prop('checked');
+				var includeLowercase = $('#includeLowercase').prop('checked');
+
+				// Create a string to store allowed characters
+				var characters = '';
+
+				// Check which character sets are allowed and append them to the characters string
+				if (includeDigits) {
+					characters += '0123456789';
+				}
+				if (includeUppercase) {
+					characters += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				}
+				if (includeLowercase) {
+					characters += 'abcdefghijklmnopqrstuvwxyz';
+				}
+
+				// Generate the random string
+				var result = '';
+				for (var i = 0; i < length; i++) {
+					// Pick a random character from the characters string and append it to the result string
+					result += characters.charAt(Math.floor(Math.random() * characters.length));
+				}
+
+				// Display the generated string in the result field
+				$('#result').text('Result: ' + result);
+			});
+		});
+	</script>
+</body>
+
+</html>
